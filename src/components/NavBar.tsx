@@ -9,9 +9,12 @@ import Button from "./UI/Button";
 export const NavBar = (props: any) => {
   return (
     <div className="heading">
-      <h2>Welcome to the game ฅ^•ﻌ•^ฅ</h2>
+      <h2>Welcome to the game (＾▽＾)ﾉ♪</h2>
       <br></br>
       <Button displayString={"Play!"} onClick={props.onStart}></Button>
+      <br></br>
+      <br></br>
+      <Button displayString={"Score Board"} onClick={props.onEnd}></Button>
       <br></br>
       <br></br>
       <Button displayString={"Leader Board"} onClick={props.onEnd}></Button>
