@@ -12,6 +12,7 @@ export class PipeSys extends Component<TodoPropsPipeSys, any> {
   lowerPipeImgPath: string;
   scale: number;
   lastUpdate: number;
+  coordinateHandler: (pipe: TodoPropsPipe) => {};
 
   private randomInt(max: number, min: number): number {
     return Math.random() * (max - min) + min;
@@ -24,19 +25,20 @@ export class PipeSys extends Component<TodoPropsPipeSys, any> {
     this.lowerPipeImgPath = props.lowerPipeImgPath;
     this.scale = props.scale;
     this.lastUpdate = Date.now();
+    this.coordinateHandler = props.coordinateHandler;
 
-    const y = this.randomInt(500, 275);
+    const y = this.randomInt(600, 400);
     this.todoPropsPipe = [
       {
         upperPipeImgPath: props.upperPipeImgPath,
         lowerPipeImgPath: props.lowerPipeImgPath,
-        coordinateHandler: null,
         scale: props.scale,
         keyId: uuid(),
         xPipeRight: this.startingx + 244 * props.scale,
         xPipeLeft: this.startingx,
-        yLowerPipe: y + props.gap / 2,
+        yLowerPipe: y,
         yUpperPipe: y - props.gap - 400,
+        yUpperPipeEdge: y - this.props.gap,
       },
     ];
 
@@ -47,28 +49,26 @@ export class PipeSys extends Component<TodoPropsPipeSys, any> {
   }
 
   pipeGenerator = () => {
-    const y = this.randomInt(500, 175);
-    const tempCoordinates = {
+    const y = this.randomInt(600, 400);
+    const tempCoordinates: TodoPropsPipe = {
       upperPipeImgPath: this.upperPipeImgPath,
       lowerPipeImgPath: this.lowerPipeImgPath,
-      coordinateHandler: null,
       scale: this.scale,
-      key: uuid(),
-      xPipeRight: this.startingx,
-      xPipeLeft: this.startingx + 244 * this.props.scale,
-      yLowerPipe: y + this.props.gap / 2,
+      keyId: uuid(),
+      xPipeRight: this.startingx + 244 * this.props.scale,
+      xPipeLeft: this.startingx,
+      yLowerPipe: y,
       yUpperPipe: y - this.props.gap - 400,
+      yUpperPipeEdge: y - this.props.gap,
     };
 
-    let oldPipes = this.state.pipeComponents;
-    oldPipes.push(tempCoordinates);
+    let updatedPipes = this.state.pipeComponents;
+    updatedPipes.push(tempCoordinates);
 
-    // this.setState({ pipeComponents: oldPipes });
-    return oldPipes;
+    return updatedPipes;
   };
 
   updatePipePos = (position: TodoPropsPipe) => {
-    // const temp = {TodoPropsPipe.xPipeRight = TodoPropsPipe.xPipeRight - }
     position.xPipeRight -= this.state.speed;
     position.xPipeLeft -= this.state.speed;
 
@@ -95,10 +95,21 @@ export class PipeSys extends Component<TodoPropsPipeSys, any> {
     } else {
       this.setState({ pipeComponents: updatedList });
     }
+
+    this.coordinateHandler(updatedList[0]);
   };
 
   render = () => {
-    console.log("pipes: ", this.state.pipeComponents.length);
+    // const temp = this.state.pipeComponents[0];
+
+    // let temp;
+    // if (this.state.pipeComponents.length === 1) {
+    //   temp = this.state.pipeComponents[0];
+    // } else {
+    //   temp = this.state.pipeComponents[1];
+    // }
+    // this.coordinateHandler(temp);
+    // console.log(temp.keyId);
     return (
       <div style={{ position: "absolute" }}>
         {this.state.pipeComponents.map((component: any) => (
@@ -108,140 +119,3 @@ export class PipeSys extends Component<TodoPropsPipeSys, any> {
     );
   };
 }
-
-// this.animationId = 0;
-// this.interval = 0;
-
-// const tempPipe = React.createRef();
-// this.componentsToUpdate = [{ pipe: tempPipe, keyId: 0 }];
-
-// this.todoPropsPipe = {
-//   upperPipeImgPath: props.upperPipeImgPath,
-//   lowerPipeImgPath: props.lowerPipeImgPath,
-//   scale: props.scale,
-//   gap: props.scale,
-//   speed: props.speed,
-//   coordinateHandler: this.getPipeCoordinates,
-//   keyId: 0,
-// };
-
-// this.state = {
-//   speed: props.speed,
-//   pipeComponents: [{ pipe: tempPipe, keyId: 0 }],
-// };
-// this.pipeTimer = Date.now();
-// }
-
-// timerSpeed() {}
-
-// getPipeCoordinates = (pipecoordinates: any) => {
-// const xPipeRight = pipecoordinates.xPipeRight;
-// const key = pipecoordinates.keyId;
-// // console.log(key);
-// let removeKey = 0;
-// let flag = false;
-
-// for (let i = 0; i < this.componentsToUpdate.length; i++) {
-//   if (this.state.pipeComponents[i].keyId === key) {
-//     removeKey = i;
-//     flag = true;
-//     break;
-//   }
-// }
-// // console.log(removeKey, );
-// console.log("before: ", this.componentsToUpdate.length);
-
-// if (xPipeRight < 0) {
-//   // const oldPipes =  this.componentsToUpdate;
-
-//   // oldPipes.splice(removeKey, 1);
-
-//   let oldPipes = this.componentsToUpdate.filter(
-//     (item) => item.keyId !== key
-//   );
-//   // console.log("old pipe", oldPipes.length, xPipeRight);
-
-//   // console.log("popping pipes");
-//   this.componentsToUpdate = oldPipes;
-//   console.log("after: ", this.componentsToUpdate.length);
-// }
-// };
-
-// updatePipeState = () => {
-// let e = Math.random();
-
-// let te = React.createRef();
-
-// // let te = React.forwardRef(<Pipe {...this.todoPropsPipe}></Pipe>);
-// // let te = new ComponentLifecycle<Pipe>();
-
-// const temp = {
-//   pipe: te,
-//   keyId: e,
-// };
-
-// const oldPipes = this.state.pipeComponents;
-// oldPipes.push(temp);
-
-// this.setState({ pipeComponents: oldPipes });
-
-// // console.log("componets before: ", this.componentsToUpdate.length);
-// // console.log("componets after: ", this.componentsToUpdate.length);
-// console.log("setting state");
-// this.componentsToUpdate = this.state.pipeComponents;
-// };
-// componentDidMount = () => {
-// console.log("componentDidMount");
-
-// this.animationId = window.requestAnimationFrame(() => this.update());
-// setInterval(this.updatePipeState, 400);
-// };
-
-// componentWillUnmount = () => {
-// window.cancelAnimationFrame(this.animationId);
-// };
-
-// update = () => {
-// // this.componentsToUpdate = this.state.pipeComponents;
-
-// // console.log(this.componentsToUpdate);
-
-// this.componentsToUpdate
-//   .filter((component) => {
-//     return component.pipe.current !== null;
-//   })
-//   .map((component: any) => component.pipe.current.update());
-
-// // this.componentsToUpdate.map((component: any) =>
-// //   component.pipe.current.update()
-// // );
-
-// // console.log("setting new state");
-
-// this.animationId = window.requestAnimationFrame(() => this.update());
-
-// // if (Date.now() - this.pipeTimer > 300) {
-
-// //   // this.state.componentsToUpdate.push(temp);
-// //   this.pipeTimer = Date.now();
-// //   // console.log("added new state");
-// // }
-// };
-
-// render = () => {
-// console.log("rendered state");
-// // console.log(this.componentsToUpdate[0].pipe);
-
-// // const prevState = this.state.pipeComponents;
-// return (
-//   <div>
-//     {this.componentsToUpdate.map((component: any, index: number) => (
-//       <Pipe
-//         key={component.keyId}
-//         ref={component.pipe}
-//         {...{ ...this.todoPropsPipe, keyId: component.keyId }}
-//       ></Pipe>
-//     ))}
-//   </div>
-// );
-// };

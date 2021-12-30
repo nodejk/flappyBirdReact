@@ -30,13 +30,18 @@ export interface TodoPropsPipeSys {
 export interface TodoPropsPipe {
   upperPipeImgPath: string;
   lowerPipeImgPath: string;
-  coordinateHandler: any;
   scale: number;
   keyId: any;
   xPipeRight: number;
   xPipeLeft: number;
   yLowerPipe: number;
   yUpperPipe: number;
+  yUpperPipeEdge: number;
+}
+
+export interface buttonInterface {
+  displayString: String;
+  onClick: any;
 }
 
 // export interface TodoPropsPipeSys {

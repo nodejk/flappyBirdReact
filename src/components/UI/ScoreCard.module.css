@@ -1,0 +1,10 @@
+.text {
+  background: transparent;
+  text-align: right;
+  position: absolute;
+  font-family: "Press Start 2P", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  font-size: 20px;
+  padding: 30px 400px;
+}

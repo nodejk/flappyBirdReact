@@ -5,6 +5,9 @@ import React from "react";
 import { PipeSys } from "./components/PipeSys";
 import { Background } from "./components/Background";
 import { Link } from "react-router-dom";
+import { Fragment } from "react";
+import ReactDOM from "react-dom";
+import { BackGroundUI } from "./components/UI/BackGroundUI";
 
 export class DefaultBackGround extends React.Component<any, any> {
   pipeSys: any;
@@ -13,18 +16,20 @@ export class DefaultBackGround extends React.Component<any, any> {
   componentsToUpdate: React.Component[];
   animationId: number;
 
-  todoPropsPipe: TodoPropsPipeSys;
+  todoPropsPipeSys: TodoPropsPipeSys;
+  portalElement: HTMLElement;
 
   constructor(props: any) {
     super(props);
+    this.portalElement = document.getElementById("overlay")!;
 
-    this.todoPropsPipe = {
+    this.todoPropsPipeSys = {
       upperPipeImgPath: upperPipe,
       lowerPipeImgPath: lowerPipe,
       scale: 0.4,
       gap: 250,
       speed: 8,
-      coordinateHandler: null,
+      coordinateHandler: () => {},
     };
 
     this.pipeSys = React.createRef();
@@ -49,10 +54,21 @@ export class DefaultBackGround extends React.Component<any, any> {
 
   render() {
     return (
-      <div style={{ position: "absolute" }}>
-        <Background></Background>
-        <PipeSys ref={this.pipeSys} {...this.todoPropsPipe}></PipeSys>
-      </div>
+      <Fragment>
+        {ReactDOM.createPortal(
+          <BackGroundUI>
+            <Background></Background>
+          </BackGroundUI>,
+          this.portalElement
+        )}
+
+        {ReactDOM.createPortal(
+          <BackGroundUI>
+            <PipeSys ref={this.pipeSys} {...this.todoPropsPipeSys}></PipeSys>
+          </BackGroundUI>,
+          this.portalElement
+        )}
+      </Fragment>
     );
   }
 }

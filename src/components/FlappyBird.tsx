@@ -4,15 +4,17 @@ import bird from "../assets/dabird.png";
 import { birdcoordinates, TodoPropsBird } from "../interfaces";
 
 export class FlappyBird extends Component<TodoPropsBird, any> {
+  lastFlap: number;
+
   constructor(props: TodoPropsBird) {
     super(props);
+    this.lastFlap = Date.now();
+
     this.state = {
       x: props.x,
       y: props.y,
       flap: false,
       imgPath: bird,
-      lastFlap: Date.now(),
-      currentFlap: Date.now(),
       max_jump: 70,
     };
   }
@@ -21,9 +23,10 @@ export class FlappyBird extends Component<TodoPropsBird, any> {
     const dy = 5;
     const dy_down = 5;
     if (flag === true) {
-      this.setState({ lastFlap: Date.now() });
+      // this.setState({ lastFlap: Date.now() });
+      this.lastFlap = Date.now();
     } else {
-      if (Date.now() - this.state.lastFlap! < 200) {
+      if (Date.now() - this.lastFlap < 200) {
         this.setState({ y: this.state.y - dy });
 
         if (this.state.y <= 100) {
@@ -54,6 +57,7 @@ export class FlappyBird extends Component<TodoPropsBird, any> {
     let tempCoordinates: birdcoordinates = {
       xRight: this.state.x + 80,
       xLeft: this.state.x,
+      // yBottom: this.state.y + 60,
       yBottom: this.state.y + 60,
       yTop: this.state.y,
     };

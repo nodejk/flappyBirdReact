@@ -1,25 +1,20 @@
-import { navbarInterface } from "../interface";
 import { Link } from "react-router-dom";
+// import classes from "./NavBar.css";
 import "./NavBar.css";
-// import { DefaultBackGround } from "../DefaultBackground";
+import { useContext } from "react";
+import { AuthenticationContext } from "../store/AuthProvider";
+// import { MainMenuCard } from "./UI/MainMenuCard";
+import Button from "./UI/Button";
 
 export const NavBar = (props: any) => {
   return (
-    // <DefaultBackGround>
-    <nav>
-      <div className="navbar">Welcome to the Game :)</div>
-      <div className="links">
-        <div className="linksTop">
-          <Link to="/game">Play Game</Link>
-        </div>
-        <div className="links">
-          <Link to="/leaderBoard">Leader board</Link>
-        </div>
-        <div className="links">
-          <Link to="/chat">Chat with anyone?</Link>
-        </div>
-      </div>
-    </nav>
-    // {/* </DefaultBackGround> */}
+    <div className="heading">
+      <h2>Welcome to the game ฅ^•ﻌ•^ฅ</h2>
+      <br></br>
+      <Button displayString={"Play!"} onClick={props.onStart}></Button>
+      <br></br>
+      <br></br>
+      <Button displayString={"Leader Board"} onClick={props.onEnd}></Button>
+    </div>
   );
 };

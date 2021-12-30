@@ -13,7 +13,7 @@ export const Pipe = (props: TodoPropsPipe) => {
       >
         <img
           src={props.lowerPipeImgPath}
-          height={`auto`}
+          height={1000 * props.scale}
           width={244 * props.scale}
         ></img>
       </div>
@@ -26,7 +26,7 @@ export const Pipe = (props: TodoPropsPipe) => {
       >
         <img
           src={props.upperPipeImgPath}
-          height={`auto`}
+          height={1000 * props.scale}
           width={244 * props.scale}
         ></img>
       </div>
