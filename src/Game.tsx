@@ -115,7 +115,7 @@ export class Game extends React.Component<any, any> {
     if (
       this.birdcoordinates.yTop <= currentPipe.yUpperPipeEdge &&
       this.birdcoordinates.xRight - currentPipe.xPipeLeft >= 2 &&
-      currentPipe.xPipeRight > 0
+      currentPipe.xPipeRight > this.birdcoordinates.xLeft
     ) {
       console.log("1");
       this.gameState = false;
@@ -124,7 +124,7 @@ export class Game extends React.Component<any, any> {
     else if (
       this.birdcoordinates.yTop >= currentPipe.yLowerPipe &&
       this.birdcoordinates.xRight - currentPipe.xPipeLeft >= 2 &&
-      currentPipe.xPipeRight > 0
+      currentPipe.xPipeRight > this.birdcoordinates.xLeft
     ) {
       console.log("2");
       this.gameState = false;
@@ -133,7 +133,7 @@ export class Game extends React.Component<any, any> {
     else if (
       this.birdcoordinates.xRight > currentPipe.xPipeLeft &&
       this.birdcoordinates.xLeft < currentPipe.xPipeRight &&
-      currentPipe.xPipeRight > 0 &&
+      currentPipe.xPipeRight > this.birdcoordinates.xLeft &&
       (this.birdcoordinates.yTop < currentPipe.yUpperPipeEdge ||
         this.birdcoordinates.yBottom > currentPipe.yLowerPipe)
     ) {
