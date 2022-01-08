@@ -1,3 +1,5 @@
+import { EventHandler } from "react";
+import { StringLiteralLike } from "typescript";
 import { Pipe } from "./components/Pipe";
 
 export interface TodoPropsBird {
@@ -42,6 +44,43 @@ export interface TodoPropsPipe {
 export interface buttonInterface {
   displayString: String;
   onClick: any;
+}
+
+export interface inputPropsInterface {
+  onChangeHandler: (event: React.FormEvent<HTMLInputElement>) => void;
+  type: string;
+  id: string;
+  label: string;
+  value: string;
+}
+
+export interface inputFormInterface {
+  value: string;
+  isValid: boolean;
+}
+
+export interface actionFormInterface {
+  type: string;
+  value: string;
+  formValidLogic: (value: string) => boolean;
+}
+
+export interface loginCredentials {
+  uid: string;
+  email: string;
+  password: string;
+}
+
+export interface scoreRequestconfiguration {
+  uid: string;
+  path: string;
+}
+
+export interface scoreBoardInterface {
+  userEmail?: string;
+  score: string;
+  timestamp: string;
+  timeStampSort?: Date;
 }
 
 // export interface TodoPropsPipeSys {

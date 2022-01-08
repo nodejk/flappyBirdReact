@@ -1,0 +1,26 @@
+.scoreboardTableHeaderRow {
+  color: black;
+  font-weight: bold;
+  height: 50px;
+}
+
+.div {
+  overflow-y: auto;
+}
+.scoreboardTable {
+  padding: 0;
+  margin: auto;
+  border-collapse: collapse;
+  width: 80%;
+  text-align: center;
+  color: black;
+  border: 3px solid black;
+}
+
+.scoreboardTable tr td {
+  height: 40px;
+}
+
+#latestUserScore {
+  background-color: crimson;
+}

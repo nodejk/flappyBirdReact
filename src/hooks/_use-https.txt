@@ -1,0 +1,60 @@
+import { useCallback, useState } from "react";
+import { auth, db } from "../config/config";
+// errorHandler: (err: string) => void
+
+interface configuration {
+  url: string;
+  method: string;
+  body: { email: string; password: string };
+}
+
+const useHttpRequest = () => {
+  const [error, setError] = useState("");
+
+  const sendRequest = useCallback(
+    async (
+      requestConfig: configuration,
+      applyTransform: (data: any) => void
+    ) => {
+      try {
+
+
+        requestConfig.
+
+
+        const response = await fetch(requestConfig.url, {
+          method: requestConfig.method,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestConfig.body),
+        });
+
+        if (!response.ok) {
+          response.json().then((data) => {
+            let defaulErrorMessage = "Authentication Failed";
+            if (data && data.error && data.error.message) {
+              defaulErrorMessage = data.error.message;
+            }
+            setError(defaulErrorMessage);
+          });
+        } else {
+          console.log("now we are here");
+          const data = await response.json();
+          setError("");
+
+          const creds = {
+            email: data.email,
+            idToken: data.idToken,
+            password: requestConfig.body.password,
+          };
+          applyTransform(creds);
+        }
+      } catch (err: any) {
+        setError(err.message);
+      }
+    },
+    []
+  );
+  return { error: error, sendRequest: sendRequest };
+};
+
+export default useHttpRequest;

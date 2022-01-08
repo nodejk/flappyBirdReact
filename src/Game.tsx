@@ -8,15 +8,16 @@ import {
   TodoPropsPipe,
   TodoPropsPipeSys,
 } from "./interfaces";
-import { Fragment } from "react";
 import { PipeSys } from "./components/PipeSys";
 import { Background } from "./components/Background";
 import React from "react";
 import ScoreCard from "../src/components/UI/ScoreCard";
-import ReactDOM from "react-dom";
-import { BackGroundUI } from "./components/UI/BackGroundUI";
 
-export class Game extends React.Component<any, any> {
+interface scoreInterface {
+  gameScoreHandler: (score: number) => void;
+}
+
+export class Game extends React.Component<scoreInterface, { score: number }> {
   flappybird: any;
   pipeSys: any;
 
@@ -35,8 +36,10 @@ export class Game extends React.Component<any, any> {
 
   gameState: boolean;
   currentPipe: any;
+  score: number = 0;
+  gameScoreHandler: Partial<{}> | undefined;
 
-  constructor(props: any) {
+  constructor(props: scoreInterface) {
     super(props);
 
     this.birdcoordinates = { xRight: 0, yTop: 0, xLeft: 0, yBottom: 0 };
@@ -44,6 +47,7 @@ export class Game extends React.Component<any, any> {
     this.pipeId = "";
 
     this.state = { score: 0 };
+
     this.lastState = false;
     this.currentState = false;
 
@@ -63,8 +67,6 @@ export class Game extends React.Component<any, any> {
       coordinateHandler: this.getPipeCoordinates,
     };
 
-    // this.currentPipe = this.todoPropsBird;
-
     this.flappybird = React.createRef();
     this.pipeSys = React.createRef();
 
@@ -75,16 +77,8 @@ export class Game extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    // window.addEventListener("keydown", this.handleSpaceKey);
     this.animationId = window.requestAnimationFrame(() => this.update());
   }
-
-  // handleSpaceKey = (event: KeyboardEvent) => {
-  //   const kc = event.keyCode;
-  //   if (kc === 32) {
-
-  //   }
-  // };
 
   scoreCal = () => {
     if (this.currentState === true && this.lastState === false) {
@@ -100,24 +94,15 @@ export class Game extends React.Component<any, any> {
   }
 
   getPipeCoordinates = (currentPipe: TodoPropsPipe) => {
-    // console.log(this.todoPropsBird.x, pipe.xPipeRight, pipe.xPipeLeft);
     this.currentState = this.todoPropsBird.x - currentPipe.xPipeRight > 100;
     this.currentPipe = currentPipe;
 
     // upper pipe collision
-    console.log(
-      currentPipe.yUpperPipeEdge,
-      this.birdcoordinates.yTop,
-      this.birdcoordinates.yBottom,
-      currentPipe.xPipeRight,
-      this.birdcoordinates.xLeft
-    );
     if (
       this.birdcoordinates.yTop <= currentPipe.yUpperPipeEdge &&
       this.birdcoordinates.xRight - currentPipe.xPipeLeft >= 2 &&
       currentPipe.xPipeRight > this.birdcoordinates.xLeft
     ) {
-      console.log("1");
       this.gameState = false;
     }
     // lower pipe collision
@@ -126,7 +111,6 @@ export class Game extends React.Component<any, any> {
       this.birdcoordinates.xRight - currentPipe.xPipeLeft >= 2 &&
       currentPipe.xPipeRight > this.birdcoordinates.xLeft
     ) {
-      console.log("2");
       this.gameState = false;
     }
     // in-between pipe collision
@@ -137,11 +121,8 @@ export class Game extends React.Component<any, any> {
       (this.birdcoordinates.yTop < currentPipe.yUpperPipeEdge ||
         this.birdcoordinates.yBottom > currentPipe.yLowerPipe)
     ) {
-      console.log("3");
       this.gameState = false;
     } else {
-      console.log("continue");
-      // return true;
     }
 
     this.scoreCal();
@@ -159,14 +140,12 @@ export class Game extends React.Component<any, any> {
     if (this.gameState) {
       this.animationId = window.requestAnimationFrame(() => this.update());
     } else {
-      console.log(this.birdcoordinates);
-      console.log(this.currentPipe);
+      this.props.gameScoreHandler(this.state.score);
+      return;
     }
-    // this.getPipeCoordinates();
   };
 
   render = () => {
-    // console.log(this.score);
     return (
       <div>
         <Background></Background>
