@@ -6,3 +6,5 @@ Flappy Bird Project with React in TypeScript.
 First Commit: Working game animation and jump functionality along with initial front page after login.
 
 Second Commit: Front Page of login with navigation buttons, score board and logic for the game.
+
+Third Commit: Login, New user Login with personal scoreboard and leader board working.
