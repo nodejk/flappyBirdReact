@@ -17,6 +17,6 @@ Link to the project: https://flappybird-bf0f4.web.app/
 
 ![image](https://user-images.githubusercontent.com/94879785/148749777-dee2113d-4167-4789-b39a-464f17b493ad.png)
 
-![image](https://user-images.githubusercontent.com/94879785/147726895-9b08869f-5770-46ce-b56a-4d42cb88dc83.png)
+![image](https://user-images.githubusercontent.com/94879785/148749892-e4571ad2-5ea8-4ea2-8384-41392620d0c2.png)
 
 
