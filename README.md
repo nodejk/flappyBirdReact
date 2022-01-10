@@ -1,5 +1,8 @@
 Flappy Bird Project with React in TypeScript.
 
+![image](https://user-images.githubusercontent.com/94879785/148749622-6bfb17af-ee2e-4c52-95f3-0f1eb16b9840.png)
+
+
 ![image](https://user-images.githubusercontent.com/94879785/147726895-9b08869f-5770-46ce-b56a-4d42cb88dc83.png)
 
 
